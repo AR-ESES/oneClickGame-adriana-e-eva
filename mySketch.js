@@ -215,7 +215,6 @@ function setup() {
   sprite_city = loadImage('city.png');
   sprite_floor = loadImage('floor.png');
   sprite_title = loadImage('title.png');
-  sprite_scoreboard = loadImage('scoreboard.png');
   
   
   sound_point = loadSound('sfx_point.wav');
@@ -247,7 +246,7 @@ function ss(data) {
 }
 
 function draw() {
-  background(123,196,208);
+  background(121,198,195);
   
   switch(page) {
     case 'GAME':
@@ -328,11 +327,7 @@ function page_game() {
   flappy_bird.update();
   flappy_bird.x = smoothMove(flappy_bird.x,90,0.02);
   
-  //Score
-    image(sprite_scoreboard,sprite_scoreboard.width-overflowX,height-sprite_scoreboard.height ,sprite_scoreboard.width*2,sprite_scoreboard.height*2);
-  image(sprite_scoreboard,sprite_scoreboard.width+sprite_scoreboard.width-overflowX,height-sprite_scoreboard.height ,sprite_scoreboard.width*2,sprite_scoreboard.height*2);
-  image(sprite_scoreboard,sprite_scoreboard.width+sprite_scoreboard.width*2-overflowX,height-sprite_scoreboard.height ,sprite_scoreboard.width*2,sprite_scoreboard.height*2);
-  
+  //Score  
   if(!gameover) {
     push();
       textFont('GROBOLD');
@@ -523,14 +518,15 @@ var menu_gameover = {
         text('Score : ',-80,0);
         text('Best : ',-80,30);
         
-        stroke(0);
+        stroke(70,121,12);
         strokeWeight(3);
-        fill(255);
+        fill(230);
         text(score,20,0);
         text(hightscore,20,30);
       pop();
       
       if(press('Restart',0,140,width/2,height/2)) { 
+        
         resetGame();
       }
       
