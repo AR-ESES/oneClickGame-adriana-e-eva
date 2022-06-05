@@ -352,7 +352,7 @@ function page_game() {
 }
 
 function page_menu() {
-  speed = 1;
+  speed = 3;
   overflowX += speed;
   if(overflowX > sprite_city.width/2) {
     overflowX = 0;
@@ -366,7 +366,7 @@ function page_menu() {
   image(sprite_floor,sprite_floor.width+sprite_floor.width-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
   image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
   
-  image(sprite_title,width/2,125,sprite_title.width/4,sprite_title.height/4);
+  image(sprite_title,width/2,100,sprite_title.width/4,sprite_title.height/4);
   
   flappy_bird.kinematicMove();
   
@@ -497,7 +497,7 @@ var menu_gameover = {
       stroke(70,121,12);
       strokeWeight(3);
       fill(230);
-      text('Adriana Barbosa e Eva Miriam',0,-50);
+      text('Ajuda a Turtuga!',0,-50);
       
       //Title
       textSize(20);

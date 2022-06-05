@@ -1,4 +1,5 @@
 MENU = 0
+
 let img1;
 let img2;
 
@@ -36,8 +37,6 @@ function draw() {
     if (MENU == 2) {
      image(img2, 0, 0, 800, 450);
   
-    
-    
     if (mouseButton == CENTER) {
       MENU = 0
     }
@@ -65,18 +64,16 @@ function draw() {
   // CRÉDITOS
   if (MENU == 3) {
      image(img2, 0, 0, 800, 450);
-    
     fill(178,203,67)
     textSize(15)
     stroke(70,121,12);
     strokeWeight(4);
     text('Scroll do rato para voltar ao MENU', 530, 30)
     textSize(25)
-    text('Elementos do Grupo: Adriana Barbosa e Eva Miriam.', 50, 150)
-    text('1. The Coding Train - Chrome Dinosaur Game.', 50, 200)
-    text('2. The Coding Train - Speech Recognition', 50, 290)
+    text('1. The Coding Train - Chrome Dinosaur Game.', 50, 150)
+    text('2. The Coding Train - Speech Recognition', 50, 200)
     text('with p5.Speech.', 80, 240)
-    text('3. Gustavo Moniz - Menu do jogo (p5js).', 50, 350)
+    text('3. Gustavo Moniz - Menu do jogo (p5js).', 50, 290)
     if (mouseButton == CENTER) {
       MENU = 0
     }
