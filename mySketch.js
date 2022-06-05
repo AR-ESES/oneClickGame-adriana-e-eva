@@ -193,7 +193,7 @@ function setup() {
     c = createCanvas(windowWidth,windowHeight);
   }
   else {
-    c = createCanvas(400,600);
+    c = createCanvas(800,450);
   }
   
   imageMode(CENTER);
