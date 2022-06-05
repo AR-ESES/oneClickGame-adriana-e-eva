@@ -209,7 +209,7 @@ function setup() {
   
   
   
-  //load
+  //IMAGENS
   sprite_flappy = loadImage('flappybird.png');
   sprite_pipe = loadImage('pipe.png');
   sprite_city = loadImage('city.png');
@@ -226,15 +226,6 @@ function setup() {
   
   
   font_flappy = loadFont('GROBOLD.ttf');
-  
-  
-  //font_flappy = loadFont('https://flappybird.netlify.com/data/Assets/flappy-font.ttf');
-  
-  //var s=httpGet('data/Assets/flappy-font.ttf','.ttf','',ss);
-  
-  //textFont(font_flappy);
-  
-  //document.getElementById('h').innerHTML = window.location.href;
   
   flappy_bird.y = height/2;
   
@@ -317,10 +308,9 @@ function page_game() {
     } catch(e) {}
   }
   
-  //Floor
-  image(sprite_floor,sprite_floor.width-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+  //Floor JOGO
+  image(sprite_floor,sprite_floor.width-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
   
   
   flappy_bird.display();
@@ -357,14 +347,10 @@ function page_menu() {
   if(overflowX > sprite_city.width/2) {
     overflowX = 0;
   }
-  
-  //City
-  image(sprite_city, sprite_city.width/2/2 ,height-sprite_city.height/2/2-40,sprite_city.width/2,sprite_city.height/2);
-  
-  //Floor
-  image(sprite_floor,sprite_floor.width-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+
+  //Floor INICIAL
+  image(sprite_floor,sprite_floor.width-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
   
   image(sprite_title,width/2,100,sprite_title.width/4,sprite_title.height/4);
   
@@ -525,12 +511,12 @@ var menu_gameover = {
         text(hightscore,20,30);
       pop();
       
-      if(press('Restart',0,140,width/2,height/2)) { 
+      if(press('Recomeçar',0,140,width/2,height/2)) { 
         
         resetGame();
       }
       
-      if(press('Menu ',0,190,width/2,height/2)) { page = 'MENU'; }
+      if(press('Iniciar',0,190,width/2,height/2)) { page = 'MENU'; }
     pop();
   },
   
