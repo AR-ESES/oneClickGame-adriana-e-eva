@@ -30,11 +30,11 @@ var rochas = [];
 
 var pontos = 0;
 var hightscore = 0;
-var velocidade = 3;
+var speed = 3;
 var gap = 80;
 
 var gameover = false;
-var pagina = "MENU";
+var page = "MENU";
 
 var overflowX = 0;
 
@@ -101,8 +101,8 @@ var turtuga_eco = {
       this.velocityY += 0.4;
       this.angle += 4;
       
-      if(velocidade > 0) {
-        velocidade = 0;
+      if(speed > 0) {
+        speed = 0;
       }
       
       if(this.angle > 90) {
@@ -237,12 +237,12 @@ function ss(data) {
 function draw() {
   background(121,198,195);
   
-  switch(pagina) {
+  switch(page) {
     case 'GAME':
-      pagina_game();
+      page_game();
       break;
     case 'MENU':
-      pagina_menu();
+      page_menu();
       break;
   }
   
@@ -275,10 +275,10 @@ function keyReleased() {
   keyReleaseEvent = true;
 }
 
-//PAGINAS
-function pagina_game() {
+//pageS
+function page_game() {
   
-  overflowX += velocidade;
+  overflowX += speed;
   if(overflowX > agua.width/2) {
     overflowX = 0;
   }
@@ -339,9 +339,9 @@ function pagina_game() {
   }
 }
 
-function pagina_menu() {
-  velocidade = 3;
-  overflowX += velocidade;
+function page_menu() {
+  speed = 3;
+  overflowX += speed;
   if(overflowX > agua.width/2) {
     overflowX = 0;
   }
@@ -362,7 +362,7 @@ function pagina_menu() {
   pop();
 
   if(mousePressEvent || (keyPressEvent && key == ' ') ) {
-  	pagina = "GAME";
+  	page = "GAME";
     resetGame();
   	
   	turtuga_eco.velocityY = 0;
@@ -401,7 +401,7 @@ function Pipe() {
       try { som_pontos.play(); } catch(e) {}
       
       if(gap > 60) { gap--; }
-      //if(velocidade < 20) { velocidade+=0.1; }
+      //if(speed < 20) { speed+=0.1; }
       
       this.potential = false;
     }
@@ -426,7 +426,7 @@ function Pipe() {
     }
   }
   this.update = function() {
-    this.x-= velocidade;
+    this.x-= speed;
   }
 }
 
@@ -446,7 +446,7 @@ function clamp(value,min,max) {
 function resetGame() {
   gameover = false;
   gap = 80;
-  velocidadevelocidade = 3;
+  speed = 3;
   score = 0;
   turtuga_eco.y = height/2
   turtuga_eco.falls = false;
@@ -515,7 +515,7 @@ var menu_gameover = {
         resetGame();
       }
       
-      if(press('Menu',0,190,width/2,height/2)) { pagina = 'MENU'; }
+      if(press('Menu',0,190,width/2,height/2)) { page = 'MENU'; }
     pop();
   },
   
@@ -585,8 +585,8 @@ function press(txt,x,y,tX,tY) {
   return (this_h && mouseReleaseEvent);
 }
 
-function smoothMove(pos,target,velocidade) {
-	return pos + (target-pos) * velocidade;
+function smoothMove(pos,target,speed) {
+	return pos + (target-pos) * speed;
 }
 
 // js utility
