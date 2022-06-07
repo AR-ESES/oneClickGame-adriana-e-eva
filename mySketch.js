@@ -1,26 +1,24 @@
-/*
- * Made by Stephcraft
- * website: https://stephcraft.net
- * game available at: https://stephcraft.itch.io/flappy-bird
- */
+//Jogo adaptado e desenvolvido por Adriana Barbosa e Eva Miriam
+// Versão base de Stephcraft
+//https://stephcraft.itch.io/flappy-bird
+ 
 
 var c;
+var tartaruga;
+var rocha;
+var agua;
+var ambiente;
+var logotipo;
 
-var sprite_flappy;
-var sprite_pipe;
-var sprite_city;
-var sprite_floor;
-var sprite_title;
+var som_pontos;
+var som_saltar;
+var som_bater;
+var som_perder;
+var som_voltar;
 
-var sound_point;
-var sound_wing;
-var sound_hit;
-var sound_die;
-var sound_sweetwing;
+var fonte_tartaruga;
 
-var font_flappy;
-
-//EVENTS
+//EVENTOS
 var mousePress = false;
 var mousePressEvent = false;
 var mouseReleaseEvent = false;
@@ -28,21 +26,21 @@ var keyPress = false;
 var keyPressEvent = false;
 var keyReleaseEvent = false;
 
-var pipes = [];
+var rochas = [];
 
-var score = 0;
+var pontos = 0;
 var hightscore = 0;
-var speed = 3;
+var velocidade = 3;
 var gap = 80;
 
 var gameover = false;
-var page = "MENU";
+var pagina = "MENU";
 
 var overflowX = 0;
 
 var startgame = false;
 
-var flappy_bird = {
+var turtuga_eco = {
   
   x : 100,
   y : 0,
@@ -66,14 +64,14 @@ var flappy_bird = {
       push();
         translate(this.x,this.y);
         rotate(radians(this.angle));
-        image(sprite_flappy,0,0, sprite_flappy.width*1.5,sprite_flappy.height*3, 0,0 ,sprite_flappy.width/2,sprite_flappy.height*3);
+        image(tartaruga,0,0, tartaruga.width*1.5,tartaruga.height*3, 0,0 ,tartaruga.width/2,tartaruga.height*3);
       pop();
     }
     else {
       push();
         translate(this.x,this.y);
         rotate(radians(this.angle));
-        image(sprite_flappy,0,0, sprite_flappy.width*1.5,sprite_flappy.height*3, sprite_flappy.width/2,0 ,sprite_flappy.width/2,sprite_flappy.height*3);
+        image(tartaruga,0,0, tartaruga.width*1.5,tartaruga.height*3, tartaruga.width/2,0 ,tartaruga.width/2,tartaruga.height*3);
       pop();
     }
   },
@@ -94,17 +92,17 @@ var flappy_bird = {
       if(this.flashReturn && this.flashAnim === 0) {
         gameover = true;
         menu_gameover.easein();
-        try { sound_die.play(); } catch(e) {}
+        try { som_perder.play(); } catch(e) {}
         
-        if(score > hightscore) { hightscore = score; }
+        if(pontos > hightscore) { hightscore = pontos; }
       }
       
       this.y += this.velocityY;
       this.velocityY += 0.4;
       this.angle += 4;
       
-      if(speed > 0) {
-        speed = 0;
+      if(velocidade > 0) {
+        velocidade = 0;
       }
       
       if(this.angle > 90) {
@@ -120,7 +118,7 @@ var flappy_bird = {
       }
     
       if(mousePressEvent || (keyPressEvent && key == ' ') ) {
-        try { sound_wing.play(); } catch(e) {}
+        try { som_saltar.play(); } catch(e) {}
         
         this.velocityY = 0;
         this.fly = true;
@@ -143,7 +141,7 @@ var flappy_bird = {
       }
       
       if(this.y > height-49) {
-        if(!flappy_bird.falls) { try { sound_hit.play(); } catch(e) {} }
+        if(!turtuga_eco.falls) { try { som_bater.play(); } catch(e) {} }
         this.falls = true;
       }
     }
@@ -179,14 +177,14 @@ var flappy_bird = {
     
     push();
       translate(this.x,this.y);
-      image(sprite_flappy,0,0, sprite_flappy.width*1.5,sprite_flappy.height*3, 0,0 ,sprite_flappy.width/2,sprite_flappy.height*3);
+      image(tartaruga,0,0, tartaruga.width*1.5,tartaruga.height*3, 0,0 ,tartaruga.width/2,tartaruga.height*3);
     pop();
   }
 }
 
 //var font = new Font();
 
-//var audio = new Audio('data/Assets/sound/sfx_point.wav');
+//var audio = new Audio('data/Assets/sound/som_pontos.wav');
 
 function setup() {
   if(mobile()) {
@@ -205,31 +203,31 @@ function setup() {
   
   noSmooth();
   
-  pipes[0] = new Pipe();
+  rochas[0] = new Pipe();
   
   
   
   //IMAGENS
-  sprite_flappy = loadImage('flappybird.png');
-  sprite_pipe = loadImage('pipe.png');
-  sprite_city = loadImage('city.png');
-  sprite_floor = loadImage('floor.png');
-  sprite_title = loadImage('title.png');
+  tartaruga = loadImage('tartaruga.png');
+  rocha = loadImage('rocha.png');
+  agua = loadImage('agua.png');
+  ambiente = loadImage('ambiente.png');
+  logotipo = loadImage('logotipo.png');
   
   
-  sound_point = loadSound('sfx_point.wav');
-  sound_hit = loadSound('sfx_hit.wav');
-  sound_die = loadSound('sfx_die.wav');
-  //sound_wing = loadSound('http://flappybird.netlify.com/data/Assets/sound/sfx_wing.wav');
-  sound_wing = loadSound('sfx_wing.wav');
-  sound_sweetwing = loadSound('sfx_swooshing.wav');
+  som_pontos = loadSound('som_pontos.wav');
+  som_bater = loadSound('som_bater.wav');
+  som_perder = loadSound('som_perder.wav');
+  //som_saltar = loadSound('http://flappybird.netlify.com/data/Assets/sound/som_saltar.wav');
+  som_saltar = loadSound('som_saltar.wav');
+  som_voltar = loadSound('som_voltar.wav');
   
   
-  font_flappy = loadFont('GROBOLD.ttf');
+  fonte_tartaruga = loadFont('GROBOLD.ttf');
   
-  flappy_bird.y = height/2;
+  turtuga_eco.y = height/2;
   
-  try { textFont(font_flappy); } catch(e) {}
+  try { textFont(fonte_tartaruga); } catch(e) {}
 }
 
 function ss(data) {
@@ -239,12 +237,12 @@ function ss(data) {
 function draw() {
   background(121,198,195);
   
-  switch(page) {
+  switch(pagina) {
     case 'GAME':
-      page_game();
+      pagina_game();
       break;
     case 'MENU':
-      page_menu();
+      pagina_menu();
       break;
   }
   
@@ -252,14 +250,14 @@ function draw() {
   //fill(0);
   //text(int(frameRate()),20,35);
   
-  //EVENT
+  //EVENTO
   mousePressEvent = false;
   mouseReleaseEvent = false;
   keyPressEvent = false;
   keyReleaseEvent = false;
 }
 
-//EVENT
+//EVENTO
 function mousePressed() {
   mousePress = true;
   mousePressEvent = true;
@@ -277,47 +275,47 @@ function keyReleased() {
   keyReleaseEvent = true;
 }
 
-//PAGES
-function page_game() {
+//PAGINAS
+function pagina_game() {
   
-  overflowX += speed;
-  if(overflowX > sprite_city.width/2) {
+  overflowX += velocidade;
+  if(overflowX > agua.width/2) {
     overflowX = 0;
   }
   
   //City
-  image(sprite_city, sprite_city.width/2/2 ,height-sprite_city.height/2/2-40,sprite_city.width/2,sprite_city.height/2);
-  //image(sprite_city, sprite_city.width/2/2+sprite_city.width/2-overflowX*0.01 ,height-sprite_city.height/2/2-40,sprite_city.width/2,sprite_city.height/2);
+  image(agua, agua.width/2/2 ,height-agua.height/2/2-40,agua.width/2,agua.height/2);
+  //image(agua, agua.width/2/2+agua.width/2-overflowX*0.01 ,height-agua.height/2/2-40,agua.width/2,agua.height/2);
 
   
   //creator
-  if(!flappy_bird.falls) {
+  if(!turtuga_eco.falls) {
     if(parseInt(frameCount)%70 === 0) {
-      pipes.push(new Pipe());
+      rochas.push(new Pipe());
     }
   }
   
-  for(var i=0; i<pipes.length; i++) {
-    if(pipes[i].x < -50) {
-      pipes.splice(i,1);
+  for(var i=0; i<rochas.length; i++) {
+    if(rochas[i].x < -50) {
+      rochas.splice(i,1);
     }
     
     try {
-      pipes[i].display();
-      pipes[i].update();
+      rochas[i].display();
+      rochas[i].update();
     } catch(e) {}
   }
   
-  //Floor JOGO
-  image(sprite_floor,sprite_floor.width-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+  //AMBIENTE JOGO
+  image(ambiente,ambiente.width-overflowX*2,height-ambiente.height ,ambiente.width*2,ambiente.height*2);
+  image(ambiente,ambiente.width+ambiente.width*2-overflowX*2,height-ambiente.height ,ambiente.width*2,ambiente.height*2);
   
   
-  flappy_bird.display();
-  flappy_bird.update();
-  flappy_bird.x = smoothMove(flappy_bird.x,90,0.02);
+  turtuga_eco.display();
+  turtuga_eco.update();
+  turtuga_eco.x = smoothMove(turtuga_eco.x,90,0.02);
   
-  //Score  
+  //PONTUAÇÃO  
   if(!gameover) {
     push();
       textFont('GROBOLD');
@@ -325,13 +323,13 @@ function page_game() {
       strokeWeight(5);
       fill(178,203,67);
       textSize(30);
-      text(score,width/2,50);
+      text(pontos,width/2,50);
     pop();
   }
   
   push();
     noStroke();
-    fill(255,flappy_bird.flashAnim);
+    fill(255,turtuga_eco.flashAnim);
     rect(width/2,height/2,width,height);
   pop();
   
@@ -341,20 +339,20 @@ function page_game() {
   }
 }
 
-function page_menu() {
-  speed = 3;
-  overflowX += speed;
-  if(overflowX > sprite_city.width/2) {
+function pagina_menu() {
+  velocidade = 3;
+  overflowX += velocidade;
+  if(overflowX > agua.width/2) {
     overflowX = 0;
   }
 
-  //Floor INICIAL
-  image(sprite_floor,sprite_floor.width-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
-  image(sprite_floor,sprite_floor.width+sprite_floor.width*2-overflowX*2,height-sprite_floor.height ,sprite_floor.width*2,sprite_floor.height*2);
+  //AMBIENTE INICIAL
+  image(ambiente,ambiente.width-overflowX*2,height-ambiente.height ,ambiente.width*2,ambiente.height*2);
+  image(ambiente,ambiente.width+ambiente.width*2-overflowX*2,height-ambiente.height ,ambiente.width*2,ambiente.height*2);
   
-  image(sprite_title,width/2,100,sprite_title.width/4,sprite_title.height/4);
+  image(logotipo,width/2,100,logotipo.width/4,logotipo.height/4);
   
-  flappy_bird.kinematicMove();
+  turtuga_eco.kinematicMove();
   
   push();
     fill(230,97,29);
@@ -364,16 +362,16 @@ function page_menu() {
   pop();
 
   if(mousePressEvent || (keyPressEvent && key == ' ') ) {
-  	page = "GAME";
+  	pagina = "GAME";
     resetGame();
   	
-  	flappy_bird.velocityY = 0;
-    flappy_bird.fly = true;
-    flappy_bird.target = clamp(this.y - 60,-19,height);
-    flappy_bird.angle = -45;
-    flappy_bird.update();
+  	turtuga_eco.velocityY = 0;
+    turtuga_eco.fly = true;
+    turtuga_eco.target = clamp(this.y - 60,-19,height);
+    turtuga_eco.angle = -45;
+    turtuga_eco.update();
   }
-  flappy_bird.x = width/2;
+  turtuga_eco.x = width/2;
 	
 }
 
@@ -386,49 +384,49 @@ function Pipe() {
   
   this.display = function() {
     push();
-      translate(this.x,this.y+this.gapSize+sprite_pipe.height/2/2);
-      image(sprite_pipe, 0,0 ,sprite_pipe.width/2,sprite_pipe.height/2);
+      translate(this.x,this.y+this.gapSize+rocha.height/2/2);
+      image(rocha, 0,0 ,rocha.width/2,rocha.height/2);
     pop();
     
     push();
-      translate(this.x,this.y-this.gapSize-sprite_pipe.height/2/2);
+      translate(this.x,this.y-this.gapSize-rocha.height/2/2);
       rotate(radians(180));
       scale(-1,1);
-      image(sprite_pipe,0,0,sprite_pipe.width/2,sprite_pipe.height/2);
+      image(rocha,0,0,rocha.width/2,rocha.height/2);
     pop();
     
     //Score
-    if(this.potential && (flappy_bird.x > this.x-25 && flappy_bird.x < this.x+25)) {
+    if(this.potential && (turtuga_eco.x > this.x-25 && turtuga_eco.x < this.x+25)) {
       score++;
-      try { sound_point.play(); } catch(e) {}
+      try { som_pontos.play(); } catch(e) {}
       
       if(gap > 60) { gap--; }
-      //if(speed < 20) { speed+=0.1; }
+      //if(velocidade < 20) { velocidade+=0.1; }
       
       this.potential = false;
     }
     
-    //Pipes collisions
+    //rochas collisions
     if( ( 
-        (flappy_bird.x+20 > this.x-25 && flappy_bird.x-20 < this.x+25) && 
-        (flappy_bird.y+20 > (this.y-this.gapSize-sprite_pipe.height/2/2)-200 && flappy_bird.y-20 < (this.y-this.gapSize-sprite_pipe.height/2/2)+200)
+        (turtuga_eco.x+20 > this.x-25 && turtuga_eco.x-20 < this.x+25) && 
+        (turtuga_eco.y+20 > (this.y-this.gapSize-rocha.height/2/2)-200 && turtuga_eco.y-20 < (this.y-this.gapSize-rocha.height/2/2)+200)
         )
         
         ||
         
         ( 
-        (flappy_bird.x+20 > this.x-25 && flappy_bird.x-20 < this.x+25) && 
-        (flappy_bird.y+20 > (this.y+this.gapSize+sprite_pipe.height/2/2)-200 && flappy_bird.y-20 < (this.y+this.gapSize+sprite_pipe.height/2/2)+200)
+        (turtuga_eco.x+20 > this.x-25 && turtuga_eco.x-20 < this.x+25) && 
+        (turtuga_eco.y+20 > (this.y+this.gapSize+rocha.height/2/2)-200 && turtuga_eco.y-20 < (this.y+this.gapSize+rocha.height/2/2)+200)
         )
         
         ) {
       
-      if(!flappy_bird.falls) { try { sound_hit.play(); } catch(e) {} }
-      flappy_bird.falls = true;
+      if(!turtuga_eco.falls) { try { som_bater.play(); } catch(e) {} }
+      turtuga_eco.falls = true;
     }
   }
   this.update = function() {
-    this.x-= speed;
+    this.x-= velocidade;
   }
 }
 
@@ -448,16 +446,16 @@ function clamp(value,min,max) {
 function resetGame() {
   gameover = false;
   gap = 80;
-  speed = 3;
+  velocidadevelocidade = 3;
   score = 0;
-  flappy_bird.y = height/2
-  flappy_bird.falls = false;
-  flappy_bird.velocityY = 0;
-  flappy_bird.angle = 0;
-  flappy_bird.flashAnim = 0;
-  flappy_bird.flashReturn = false;
-  pipes = [];
-  flappy_bird.target = 10000;
+  turtuga_eco.y = height/2
+  turtuga_eco.falls = false;
+  turtuga_eco.velocityY = 0;
+  turtuga_eco.angle = 0;
+  turtuga_eco.flashAnim = 0;
+  turtuga_eco.flashReturn = false;
+  rochas = [];
+  turtuga_eco.target = 10000;
   menu_gameover.ease = 0;
 }
 
@@ -483,7 +481,8 @@ var menu_gameover = {
       stroke(70,121,12);
       strokeWeight(3);
       fill(230);
-      text('Ajuda a Turtuga!',0,-50);
+      text('Ajuda a Turtuga',0,-50);
+      text('a desviar-se do lixo!',0,-30);
       
       //Title
       textSize(20);
@@ -493,7 +492,7 @@ var menu_gameover = {
       fill(230);
       text('Turtuga Eco',0,-80);
       
-      //Info
+    //Página de perder
       push();
         textFont('GROBOLD');
         textAlign(LEFT,CENTER);
@@ -501,14 +500,14 @@ var menu_gameover = {
         stroke(70,121,12);
         strokeWeight(3);
         fill(230);
-        text('Score : ',-80,0);
-        text('Best : ',-80,30);
-        
+        text('Pontos : ',-80,10);
+        text('Recorde : ',-80,40);
+
         stroke(70,121,12);
         strokeWeight(3);
         fill(230);
-        text(score,20,0);
-        text(hightscore,20,30);
+        text(score,20,10);
+        text(hightscore,20,40);
       pop();
       
       if(press('Recomeçar',0,140,width/2,height/2)) { 
@@ -516,7 +515,7 @@ var menu_gameover = {
         resetGame();
       }
       
-      if(press('Menu',0,190,width/2,height/2)) { page = 'MENU'; }
+      if(press('Menu',0,190,width/2,height/2)) { pagina = 'MENU'; }
     pop();
   },
   
@@ -581,13 +580,13 @@ function press(txt,x,y,tX,tY) {
     }
   pop();
   
-  if(this_h && mouseReleaseEvent) { try { sound_sweetwing.play(); } catch(e) {} }
+  if(this_h && mouseReleaseEvent) { try { som_voltar.play(); } catch(e) {} }
   
   return (this_h && mouseReleaseEvent);
 }
 
-function smoothMove(pos,target,speed) {
-	return pos + (target-pos) * speed;
+function smoothMove(pos,target,velocidade) {
+	return pos + (target-pos) * velocidade;
 }
 
 // js utility
