@@ -94,7 +94,7 @@ var turtuga_eco = {
         menu_gameover.easein();
         try { som_perder.play(); } catch(e) {}
         
-        if(pontos > hightscore) { hightscore = pontos; }
+        if(score > hightscore) { hightscore = score; }
       }
       
       this.y += this.velocityY;
@@ -323,7 +323,7 @@ function page_game() {
       strokeWeight(5);
       fill(178,203,67);
       textSize(30);
-      text(pontos,width/2,50);
+      text(score,width/2,50);
     pop();
   }
   
