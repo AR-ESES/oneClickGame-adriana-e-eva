@@ -516,7 +516,7 @@ var menu_gameover = {
         resetGame();
       }
       
-      if(press('Iniciar',0,190,width/2,height/2)) { page = 'MENU'; }
+      if(press('Menu',0,190,width/2,height/2)) { page = 'MENU'; }
     pop();
   },
   

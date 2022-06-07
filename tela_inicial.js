@@ -50,12 +50,12 @@ function draw() {
     textSize(15)
     stroke(70,121,12);
     strokeWeight(4);
-    text('Scroll do rato para voltar ao MENU', 530, 30)
-    textSize(25)
-    text('1. Salta os obstáculos e evita chocar contra eles.', 50, 150)
-    text('2. Para saltares deves clicar na tecla "space" ou ', 50, 200)
-    text('3. O objetivo é obter o maior resultado possível.', 50, 250)
-    text('4. O jogo termina quando chocares contra o obstáculo.', 50, 300)
+    text('Scroll do rato para retroceder', 560, 430)
+    textSize(20)
+    text('1. Controlar o movimento da tartaruga com o botao esquerdo do rato,', 40, 190)
+    text('desviando a tartaruga o mais longe possível longe das rochas.', 40, 220)
+    text('2. A cada conjunto de rochas que a tartaruga ultrapassa, o jogador', 40, 260)
+    text('ganha 1 ponto.', 40, 290)
 
     if (mouseButton == CENTER) {
       MENU = 0
@@ -68,12 +68,12 @@ function draw() {
     textSize(15)
     stroke(70,121,12);
     strokeWeight(4);
-    text('Scroll do rato para voltar ao MENU', 530, 30)
-    textSize(25)
-    text('1. The Coding Train - Chrome Dinosaur Game.', 50, 150)
-    text('2. The Coding Train - Speech Recognition', 50, 200)
-    text('with p5.Speech.', 80, 240)
-    text('3. Gustavo Moniz - Menu do jogo (p5js).', 50, 290)
+    text('Scroll do rato para retroceder', 560, 430)
+    textSize(20)
+    text('Elementos do grupo: Adriana Barbosa e Eva miriam', 40, 180)
+    text('Unidade Curricular: Design Multimédia', 40, 220)
+    text('Docentes: André Rocha e José Manuel Soares', 40, 260)
+    text('2.º ano Licenciatura Produçao Multimédia em Educaçao', 40, 300)
     if (mouseButton == CENTER) {
       MENU = 0
     }
