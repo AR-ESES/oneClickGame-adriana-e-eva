@@ -22,7 +22,7 @@ O objetivo do jogo é proteger a tartaruga de todos os obstáculos, sendo estes,
 
 ### Código do Jogo
 
-Em termos de código do jogo, a base do código P5js foi inspirado no código do jogo Flappy Bird, e foi retirado em https://openprocessing.org/sketch/1322233. Começámos por substituir os elementos gráficos já presentes pelos nossos, assim como a tartaruga, as rochas, o ambiente do jogo, o menu inicial e a notificação de quando o jogador perde, fazendo as devidas alterações de tamanho e resolução onde foi necessário. Aqui encontra-se o link para o nosso Jogo: https://ar-eses.github.io/oneClickGame-adriana-e-eva/.
+Em termos de código do jogo, a base do código P5js foi inspirado no código do jogo Flappy Bird, e foi retirado em https://openprocessing.org/sketch/1322233. Começámos por substituir os elementos gráficos já presentes pelos nossos, assim como a tartaruga, as rochas, o ambiente do jogo, o menu inicial e a notificação de quando o jogador perde, fazendo as devidas alterações de tamanho e resolução onde foi necessário. Aqui encontra-se o link para o nosso Jogo: https://ar-eses.github.io/oneClickGame-adriana-e-eva/. Podemos ainda consultar aqui o nosso código com a página inicial visível: https://mega.nz/file/qTBGTYyJ#bqOTiUNYjwIr19glhsyKN9GGoGjrqK4ZznGkwEnxOJs.
 
 **Regras**
 
